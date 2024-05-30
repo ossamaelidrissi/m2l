@@ -8,12 +8,24 @@ const productRoutes = require("./routes/productRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const commandeRoutes = require("./routes/commandeRoutes");
 const articleRoutes = require("./routes/articleRoutes");
+const { fileURLToPath } = require('url');
+const { dirname } = require('path');
+const path = require('path')
+
+
 
 // Initialisation de l'application Express
 const app = express();
 
 // Configuration de l'application
 config(app);
+
+// const ___filename = fileURLToPath(import.meta.url);
+const ___dirname = dirname(__filename);
+
+app.use(express.static(path.join(___dirname,'public')))
+
+app.use('/static',express.static('public'))
 
 // Middleware de vérification de l'administrateur
 app.use("/api/admin", middleware.isAdmin);
